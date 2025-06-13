@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Studio - Modern UI</title>
+    <!-- Google Font: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Monaco Editor Loader -->
+    <script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.44.0/min/vs/loader.js"></script>
+    <style>
+        /* Custom CSS - Modern Soft UI */
+        :root {
+            --bg-primary: #ffffff; /* White - for main content areas, buttons */
+            --bg-secondary: #f9fafb; /* Tailwind gray-50 - for subtle backgrounds like sidebar, tabs container */
+            --bg-tertiary: #f3f4f6;  /* Tailwind gray-100 - for hover states */
+            --bg-accent-light: #eff6ff; /* Tailwind blue-50 - for light accent backgrounds, e.g., button active */
+
+            --border-color: #e5e7eb; /* Tailwind gray-300 - default borders */
+            --border-color-strong: #d1d5db; /* Tailwind gray-400 - for stronger/hovered borders */
+            --border-accent-subtle: #93c5fd; /* Tailwind blue-300 - for accent border on hover */
+
+            --text-primary: #1f2937; /* Tailwind gray-800 - main text headings */
+            --text-secondary: #6b7280; /* Tailwind gray-500 - secondary text, icons, placeholders */
+            --text-accent: #2563eb; /* Tailwind blue-600 - for accented text, active tab text */
+            --text-on-accent: #ffffff; /* Text on a solid accent background */
+
+            --accent-color: #3b82f6;  /* Tailwind blue-500 - primary accent color */
+            --accent-color-hover: #2563eb; /* Tailwind blue-600 - hover state for accent */
+
+            --error-color-text: #b91c1c; /* Tailwind red-700 - for error message text */
+            --error-bg: #fee2e2; /* Tailwind red-100 - for error message background */
+
+            --font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+            --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+            --shadow-soft: 0 1px 3px 0 rgb(0 0 0 / 0.07), 0 1px 2px -1px rgb(0 0 0 / 0.07);
+            --shadow-medium: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-strong: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+
+            --text-green-500: #10B981; /* For success checkmarks etc. */
+            
+            --header-bg: #ffffff;
+            --sidebar-bg: #f9fafb; /* Light gray */
+            --tabs-bg: #f9fafb;    /* Light gray */
+            --content-bg: #ffffff; /* White */
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-secondary); /* Overall page background for contrast */
+            color: var(--text-primary);
+        }
+
+        /* Header */
+        .header {
+            background-color: var(--header-bg);
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: var(--shadow-soft);
+            color: var(--text-primary);
+        }
+        #sidebarToggleBtn {
+            background-color: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            border-radius: 6px; /* Softer */
+            width: 32px; height: 32px; /* Adjusted size */
+        }
+        #sidebarToggleBtn:hover {
+            border-color: var(--border-color-strong);
+            color: var(--text-primary);
+            background-color: var(--bg-tertiary);
+        }
+        #sidebarToggleBtn i {
+            font-size: 1rem; /* Slightly smaller icon */
+        }
+         .header .title .h-7.w-7 { /* SVG Icon size */
+            height: 1.75rem; width: 1.75rem; 
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 240px;
+            background-color: var(--sidebar-bg);
+            border-right: 1px solid var(--border-color);
+            padding: 16px 12px;
+        }
+
+        .sidebar button {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            padding: 10px 14px;
+            margin-bottom: 6px;
+            text-align: left;
+            background-color: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            border-radius: 8px; /* Softer radius */
+            color: var(--text-secondary);
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none !important;
+            transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+            box-shadow: var(--shadow-soft);
+        }
+        .sidebar button i {
+            margin-right: 12px;
+            width: 18px;
+            text-align: center;
+            color: var(--text-secondary);
+            transition: color 0.2s ease;
+        }
+        .sidebar button:hover {
+            background-color: var(--bg-tertiary);
+            color: var(--text-accent);
+            border-color: var(--border-accent-subtle); /* Accent border on hover */
+            box-shadow: var(--shadow-medium);
+        }
+        .sidebar button:hover i {
+            color: var(--text-accent);
+        }
+        .sidebar button:active {
+            background-color: var(--bg-accent-light); /* Light accent bg */
+            border-color: var(--accent-color);
+            color: var(--text-accent);
+            transform: scale(0.98); /* Subtle press effect */
+            box-shadow: none;
+        }
+        .sidebar button:active i {
+            color: var(--text-accent);
+        }
+        .sidebar button:disabled,
+        .sidebar button[disabled] {
+            opacity: 0.6; cursor: not-allowed;
+            background-color: var(--bg-primary) !important;
+            color: var(--text-secondary) !important;
+            border-color: var(--border-color) !important;
+            box-shadow: none !important; transform: none !important;
+        }
+        .sidebar button:disabled i,
+        .sidebar button[disabled] i {
+            color: var(--text-secondary) !important;
+        }
+        .sidebar hr {
+            border: none; border-top: 1px solid var(--border-color); margin: 20px 0px;
+        }
+        .sidebar button i.fa-check {
+            color: var(--text-green-500) !important;
+            /* transform: scale(1.1); -- keep if desired, or remove for consistency */
+        }
+
+        /* Sidebar button adjustments for smaller screens */
+        @media (max-width: 767px) {
+            .sidebar button {
+                padding: 9px 12px; font-size: 13px;
+            }
+            .sidebar button i { margin-right: 10px; }
+        }
+
+        /* Mobile Frame */
+        .mobile-frame {
+            width: 320px;
+            aspect-ratio: 9 / 19.5; /* Common modern phone aspect ratio */
+            max-width: 95%; max-height: 95%; box-sizing: border-box;
+            border: 12px solid #1f2937; /* Dark gray "bezel" (Tailwind gray-800) */
+            border-radius: 36px; /* Significantly more rounded */
+            background-color: #111827; /* Inner bezel color (Tailwind gray-900) */
+            box-shadow: var(--shadow-strong);
+            overflow: hidden; margin: auto; display: flex;
+        }
+        #mobilePreviewFrame {
+            width: 100%; height: 100%; border: none; background-color: white;
+            border-radius: 24px; /* Inner screen rounding */
+        }
+        #mobilePreviewTab { /* Container for mobile frame */
+            background-color: var(--bg-secondary);
+        }
+
+        .error-console {
+            background-color: var(--error-bg);
+            color: var(--error-color-text);
+            border-top: 1px solid var(--border-color);
+        }
+        .error-console pre {
+            margin: 0; white-space: pre-wrap; word-break: break-all;
+        }
+        .sr-only { /* Unchanged */
+            position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+            overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border-width: 0;
+        }
+
+        /* Tabs */
+        .tabs-container {
+            overflow-x: auto; -webkit-overflow-scrolling: touch;
+            background-color: var(--tabs-bg);
+            border-bottom: 1px solid var(--border-color);
+            padding: 8px 12px 0 12px; /* No bottom padding, tabs sit on border */
+        }
+        .tabs-container::-webkit-scrollbar { height: 3px; }
+        .tabs-container::-webkit-scrollbar-thumb { background-color: var(--border-color-strong); border-radius: 3px; }
+        .tabs { white-space: nowrap; }
+
+        .tabs .tab {
+            margin-right: 2px;
+            border: 1px solid transparent; /* Key for active tab connection */
+            border-bottom: none; /* Inactive tabs don't have bottom border */
+            background-color: transparent;
+            color: var(--text-secondary);
+            border-radius: 6px 6px 0 0; /* Rounded top corners */
+            transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+            position: relative; /* For z-index and potential ::after later */
+            font-weight: 500; /* Medium weight for tabs */
+            /* Tailwind classes manage padding, or define here: e.g. padding: 8px 14px; */
+        }
+        .tabs .tab i {
+            color: var(--text-secondary);
+            transition: color 0.2s ease;
+        }
+        .tabs .tab:hover:not(.active) { /* Hover for inactive tabs */
+            background-color: var(--bg-tertiary);
+            color: var(--text-primary);
+        }
+        .tabs .tab:hover:not(.active) i {
+            color: var(--text-primary);
+        }
+        .tabs .tab.active {
+            background-color: var(--content-bg); /* Match content pane background */
+            border-color: var(--border-color); /* Top, left, right borders */
+            border-bottom-color: var(--content-bg); /* "Connected" look by matching bg */
+            color: var(--text-accent);
+            font-weight: 600; /* Semibold for active tab */
+            z-index: 1; /* To sit above tabs-container border-bottom */
+        }
+        .tabs .tab.active i {
+            color: var(--text-accent);
+        }
+        
+        /* Main Content Viewer (Editor/Preview) */
+        .content { /* Parent of tabs and viewer */
+            background-color: var(--tabs-bg); /* Extend tab container bg slightly */
+        }
+        .viewer > .tab-content { /* Ensure consistent background for tab panels */
+            background-color: var(--content-bg);
+        }
+        #htmlTab, #previewTab { /* These are the direct content panes */
+             background-color: var(--content-bg);
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--header-bg); /* Match header for consistency */
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+        }
+
+        /* Toast Notification */
+        #toastNotification {
+            background-color: var(--text-primary); /* Dark, modern */
+            color: var(--bg-primary); /* White text */
+            box-shadow: var(--shadow-medium);
+            border-radius: 6px;
+            /* Tailwind classes for padding, transform etc. are fine */
+        }
+
+        /* General Scrollbars (can be overridden by Monaco/specific elements) */
+        ::-webkit-scrollbar {
+            width: 10px; /* Slightly wider for easier grab */
+            height: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-tertiary); /* Light track */
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-color-strong); /* Mid-gray thumb */
+            border-radius: 5px;
+            border: 2px solid var(--bg-tertiary); /* Creates padding around thumb */
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-secondary); /* Darker on hover */
+        }
+    </style>
+
+</head>
+<body class="flex flex-col h-screen text-sm overflow-hidden"> <!-- Removed Tailwind bg/text, handled by CSS -->
+    <!-- Header -->
+    <div class="header py-3 px-5 flex justify-between items-center z-20 flex-shrink-0"> <!-- Removed Tailwind bg,border,shadow -->
+        <div class="flex items-center">
+            <button id="sidebarToggleBtn" aria-label="Toggle sidebar"
+                    class="md:hidden flex items-center justify-center mr-3 -ml-1 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500"> <!-- Adjusted mr, size handled in CSS -->
+                <i class="fas fa-bars"></i> <!-- Size handled by #sidebarToggleBtn i -->
+            </button>
+            <div class="title font-semibold text-lg flex items-center">
+                <svg width="40" height="40" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" class="mr-2 h-7 w-7"> <!-- Size adjusted in CSS -->
+                    <circle cx="50" cy="50" r="45" fill="#2196F3"/>
+                    <path d="M35,20 Q20,20 20,35 L20,65 Q20,80 35,80"
+                          fill="none" stroke="#ffffff" stroke-width="6" stroke-linecap="round"/>
+                    <path d="M65,20 Q80,20 80,35 L80,65 Q80,80 65,80"
+                          fill="none" stroke="#ffffff" stroke-width="6" stroke-linecap="round"/>
+                    <rect x="30" y="35" width="40" height="30" fill="#333" rx="2"/>
+                    <circle cx="40" cy="50" r="5" fill="#ffffff"/>
+                    <rect x="50" y="45" width="15" height="10" fill="#ffffff" rx="1"/>
+                </svg>
+                HTML Studio
+            </div>
+        </div>
+    </div>
+
+<!-- Toast Notification -->
+<div id="toastNotification" class="fixed top-16 left-1/2 transform -translate-x-1/2 py-2.5 px-5 rounded-md shadow-lg text-sm z-50 opacity-0 transition-opacity duration-300 ease-in-out pointer-events-none">
+    Pasted! <!-- Tailwind classes for padding, transform, etc. are fine. Bg, color, radius in CSS -->
+</div>
+
+<!-- Main Content Area -->
+<div class="main flex flex-1 overflow-hidden relative">
+    <!-- Sidebar -->
+    <div id="sidebar" class="sidebar fixed inset-y-0 left-0 z-30 transform -translate-x-full md:relative md:translate-x-0 overflow-y-auto transition-transform duration-300 ease-in-out md:flex-shrink-0">
+        <button id="clearBtn"><i class="fas fa-eraser"></i><span>Clear Editor</span></button>
+        <button id="copyCodeBtn"><i class="fas fa-copy"></i><span>Copy Code</span></button>
+        <button id="pasteCodeBtn"><i class="fas fa-paste"></i><span>Paste Code</span></button>
+        <hr>
+        <button id="importBtn"><i class="fas fa-upload"></i><span>Import</span></button>
+        <input type="file" id="fileInput" accept=".txt,.html" class="sr-only"> <!-- Added .html to accept -->
+        <button id="exportBtn"><i class="fas fa-download"></i><span>Download</span></button>
+        <hr>
+    </div>
+    <div id="sidebarOverlay" class="fixed inset-0 bg-black bg-opacity-30 z-20 hidden md:hidden" aria-hidden="true"></div> <!-- Slightly darker overlay -->
+
+    <!-- Content Area (Editor/Preview) -->
+    <div class="content flex-1 flex flex-col overflow-hidden"> <!-- bg handled by CSS -->
+        <!-- Tabs -->
+        <div class="tabs-container flex-shrink-0"> <!-- bg, border, padding handled by CSS -->
+            <div class="tabs flex">
+                <!-- Tab Tailwind: base flex, sizing. Custom CSS: bg, color, border, radius, padding -->
+                <button class="tab cursor-pointer flex-shrink-0 inline-flex items-center text-xs px-3 py-2 md:text-sm md:px-4 md:py-2.5" data-tab="html">HTML Editor</button>
+                <button class="tab cursor-pointer flex-shrink-0 active inline-flex items-center text-xs px-3 py-2 md:text-sm md:px-4 md:py-2.5" data-tab="preview">
+                    <i class="fas fa-play mr-1 md:mr-1.5 text-xs"></i>
+                    <span class="hidden md:inline">Desktop View</span>
+                    <span class="inline md:hidden">View</span>
+                </button>
+                <button class="tab cursor-pointer flex-shrink-0 hidden md:flex items-center text-sm px-4 py-2.5" data-tab="mobilePreview"> <!-- md:flex to show on medium+ -->
+                    <i class="fas fa-play mr-1.5 text-xs"></i>
+                    Mobile View
+                </button>
+            </div>
+        </div>
+        <!-- Viewer Area -->
+        <div class="viewer flex-1 relative overflow-hidden"> <!-- bg of children handled by CSS -->
+            <div id="htmlTab" class="tab-content absolute inset-0 z-0"><div id="editorContainer" class="w-full h-full"></div></div>
+            <div id="previewTab" class="tab-content active absolute inset-0 z-10"><iframe id="previewFrame" title="Desktop HTML Preview" class="w-full h-full border-none bg-white"></iframe></div>
+            <div id="mobilePreviewTab" class="tab-content absolute inset-0 z-0"> <!-- bg handled by CSS -->
+                 <div class="mobile-frame-container flex justify-center items-center h-full p-2 sm:p-4 overflow-auto">
+                    <div class="mobile-frame flex-shrink-0"><iframe id="mobilePreviewFrame" title="Mobile HTML Preview"></iframe></div>
+                </div>
+            </div>
+        </div>
+        <div id="errorConsole" class="error-console p-3 px-4 text-xs font-mono max-h-32 overflow-y-auto hidden flex-shrink-0"> <!-- bg, color, border handled by CSS, adjusted padding/max-h -->
+            <pre id="errorOutput"></pre>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<div class="footer py-2.5 px-5 text-center text-xs flex-shrink-0"> <!-- bg, border, text color by CSS. Adjusted padding. -->
+    HTML Studio © 2025. Crafted with <i class="fas fa-heart text-red-500"></i>.
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        let htmlEditorInstance = null;
+        const sidebar = document.getElementById('sidebar');
+        const sidebarToggleBtn = document.getElementById('sidebarToggleBtn');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+        const tabs = document.querySelectorAll('.tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+        const editorContainer = document.getElementById('editorContainer');
+        const previewFrame = document.getElementById('previewFrame');
+        const mobilePreviewFrame = document.getElementById('mobilePreviewFrame');
+        const fileInput = document.getElementById('fileInput');
+        const errorConsole = document.getElementById('errorConsole');
+        const errorOutput = document.getElementById('errorOutput');
+        const clearBtn = document.getElementById('clearBtn');
+        const importBtn = document.getElementById('importBtn');
+        const exportBtn = document.getElementById('exportBtn');
+        const copyCodeBtn = document.getElementById('copyCodeBtn');
+        const pasteCodeBtn = document.getElementById('pasteCodeBtn');
+        const toastNotification = document.getElementById('toastNotification');
+
+        if (!editorContainer || !previewFrame || !mobilePreviewFrame || !fileInput || !errorConsole || !errorOutput || !sidebar || !sidebarToggleBtn || !sidebarOverlay || !toastNotification) {
+            console.error("Essential UI elements not found! Check HTML IDs.");
+            document.body.innerHTML = '<div style="padding:20px;font-family:sans-serif;color:red;"><h1>Initialization Error</h1><p>Critical UI elements are missing. The application cannot start.</p></div>';
+            return;
+        }
+
+        function openMobileSidebar() {
+            sidebar.classList.remove('-translate-x-full'); sidebarOverlay.classList.remove('hidden');
+            document.body.classList.add('overflow-hidden', 'md:overflow-auto');
+        }
+        function closeMobileSidebar() {
+            sidebar.classList.add('-translate-x-full'); sidebarOverlay.classList.add('hidden');
+            document.body.classList.remove('overflow-hidden', 'md:overflow-auto');
+        }
+        sidebarToggleBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (sidebar.classList.contains('-translate-x-full')) openMobileSidebar(); else closeMobileSidebar();
+        });
+        sidebarOverlay.addEventListener('click', closeMobileSidebar);
+
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => { clearTimeout(timeout); func.apply(this, args); };
+                clearTimeout(timeout); timeout = setTimeout(later, wait);
+            };
+        }
+
+        function logError(message, isHtmlError = false) {
+            console.error(message);
+            errorOutput.textContent += `[${new Date().toLocaleTimeString()}] ${isHtmlError ?'Preview Error':'Application Event'}: ${message}\n`;
+            errorConsole.classList.remove('hidden'); errorConsole.scrollTop = errorConsole.scrollHeight;
+        }
+        function clearErrorConsole() {
+             errorOutput.textContent = ''; errorConsole.classList.add('hidden');
+        }
+
+        function updateSpecificPreview(targetFrameElement) {
+            if (!htmlEditorInstance || !targetFrameElement) return;
+            try {
+                // Ensure the iframe has loaded before trying to set srcdoc, especially on first load or tab switch
+                if (targetFrameElement.contentWindow) {
+                    targetFrameElement.srcdoc = htmlEditorInstance.getValue();
+                } else {
+                    targetFrameElement.onload = () => { // Fallback if not ready
+                         targetFrameElement.srcdoc = htmlEditorInstance.getValue();
+                         targetFrameElement.onload = null; // Prevent multiple onload calls
+                    }
+                }
+            } catch (e) {
+                logError(`Preview update failed: ${e.message}`, true);
+                try { targetFrameElement.srcdoc = `<html><body style="font-family:sans-serif;color:red;padding:20px;"><h1>Preview Error</h1><pre>${e.message}</pre></body></html>`; } catch (fe) { /* Failsafe */ }
+            }
+        }
+        function updateActivePreviewPanes() {
+            if (document.getElementById('previewTab').classList.contains('active')) updateSpecificPreview(previewFrame);
+            
+            const mobilePreviewTabElement = document.getElementById('mobilePreviewTab');
+            const mobilePreviewButton = document.querySelector('.tab[data-tab="mobilePreview"]');
+            // Check if mobile preview tab is visible (md:flex) and active
+            if (mobilePreviewButton && getComputedStyle(mobilePreviewButton).display !== 'none' && mobilePreviewTabElement && mobilePreviewTabElement.classList.contains('active')) {
+                updateSpecificPreview(mobilePreviewFrame);
+            }
+        }
+        const debouncedUpdateActivePreviews = debounce(updateActivePreviewPanes, 350); // Slightly faster debounce
+
+        function showToast(message) {
+            toastNotification.textContent = message;
+            toastNotification.classList.remove('opacity-0');
+            // toastNotification.classList.add('opacity-100'); // Tailwind JIT might not pick this up if not present initially.
+            toastNotification.style.opacity = '1'; // Direct style manipulation for reliable fade-in
+            setTimeout(() => {
+                // toastNotification.classList.remove('opacity-100');
+                toastNotification.classList.add('opacity-0');
+                toastNotification.style.opacity = '0';
+            }, 2500);
+        }
+
+        require.config({ paths: { 'vs': 'https://cdn.jsdelivr.net/npm/monaco-editor@0.44.0/min/vs' }});
+        require(['vs/editor/editor.main'], function () {
+            try {
+                htmlEditorInstance = monaco.editor.create(editorContainer, {
+                    value: `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to the Modern UI!</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;    
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f8f9fa; 
+            font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            overflow: hidden; 
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .container {
+            text-align: center;
+            background-color: #ffffff;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #3b82f6; /* Tailwind blue-500 */
+            font-size: 2.2em; 
+            margin-bottom: 25px; 
+            font-weight: 700; /* Bold */
+        }
+        #actionButton {
+            background-color: #3b82f6; /* Tailwind blue-500 */
+            color: white;
+            border: none;
+            padding: 12px 28px; 
+            border-radius: 8px;  
+            font-size: 1em;   
+            font-family: inherit; 
+            font-weight: 500;
+            cursor: pointer;
+            transition: transform 0.1s ease-out, box-shadow 0.15s ease-out, background-color 0.15s ease-out;
+            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2); /* Softer, colored shadow */
+        }
+        #actionButton:hover {
+            background-color: #2563eb; /* Tailwind blue-600 */
+            box-shadow: 0 6px 15px rgba(37, 99, 235, 0.3);
+            transform: translateY(-2px); 
+        }
+        #actionButton.clicked {
+            transform: scale(0.96) translateY(0px); 
+            background-color: #1d4ed8; /* Tailwind blue-700 */
+            box-shadow: 0 2px 5px rgba(37, 99, 235, 0.3); 
+        }
+        #confettiZone {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 1000; overflow: hidden;     
+        }
+        .particle {
+            position: absolute; opacity: 0; 
+            animation-name: fallAndTwirl;
+            animation-timing-function: cubic-bezier(0.34, 0, 0.63, 1.45); /* Playful easing */
+            animation-fill-mode: forwards;    
+            animation-duration: var(--fall-duration); 
+            animation-delay: var(--animation-delay);  
+        }
+        @keyframes fallAndTwirl {
+            0% {
+                opacity: 0;
+                transform: translateY(-50px) translateX(var(--initial-x-offset)) rotate(var(--initial-rotation)) scale(0.5);
+            }
+            10% { opacity: 1; transform: scale(1.1); }
+            100% {
+                opacity: 0; 
+                transform: translateY(105vh) translateX(var(--final-x-sway)) rotate(var(--final-rotation)) scale(0.3);
+            }
+        }
+        @media (max-width: 480px) {
+            .container { padding: 20px; }
+            h1 { font-size: 1.8em; margin-bottom: 20px; }
+            #actionButton { padding: 10px 22px; font-size: 0.9em; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Modern UI Demo!</h1>
+        <button id="actionButton">Click for Confetti!</button>
+    </div>
+    <div id="confettiZone"></div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const button = document.getElementById('actionButton');
+            const confettiZone = document.getElementById('confettiZone');
+            button.addEventListener('click', () => {
+                button.classList.add('clicked');
+                setTimeout(() => { button.classList.remove('clicked'); }, 200);
+                launchConfetti();
+            });
+            function launchConfetti() {
+                const particleCount = 80; 
+                const colors = ['#3b82f6', '#10b981', '#ef4444', '#f59e0b', '#8b5cf6', '#ec4899'];
+                for (let i = 0; i < particleCount; i++) { createParticle(colors); }
+            }
+            function createParticle(colors) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                const randomColor = colors[Math.floor(Math.random() * colors.length)];
+                let size = Math.random() * 8 + 6; 
+                particle.style.width = \`\${size}px\`;
+                particle.style.height = \`\${size}px\`;
+                if (Math.random() > 0.3) { // Mix of shapes
+                    particle.style.backgroundColor = randomColor;
+                    if (Math.random() > 0.5) particle.style.borderRadius = '50%';
+                } else { // Streamers
+                    particle.style.backgroundColor = randomColor;
+                    particle.style.width = \`\${size / 2}px\`;
+                    particle.style.height = \`\${size * 2}px\`;
+                }
+                particle.style.left = \`\${Math.random() * 100}vw\`;
+                const fallDuration = Math.random() * 2 + 2.5; 
+                let swayMagnitude = Math.random() * 150 + 80; 
+                let swayDirection = Math.random() < 0.5 ? 1 : -1;
+                const finalSway = swayDirection * swayMagnitude;
+                const initialRotation = Math.random() * 720 - 360; 
+                const rotationChange = (Math.random() > 0.5 ? 1 : -1) * (Math.random() * 720 + 360); 
+                const animationDelay = Math.random() * 0.5; 
+                particle.style.setProperty('--fall-duration', \`\${fallDuration}s\`);
+                particle.style.setProperty('--animation-delay', \`\${animationDelay}s\`);
+                particle.style.setProperty('--initial-x-offset', '0px'); 
+                particle.style.setProperty('--final-x-sway', \`\${finalSway}px\`); 
+                particle.style.setProperty('--initial-rotation', \`\${initialRotation}deg\`);
+                particle.style.setProperty('--final-rotation', \`\${initialRotation + rotationChange}deg\`);
+                confettiZone.appendChild(particle);
+                particle.addEventListener('animationend', () => { particle.remove(); });
+            }
+        });
+    <\/script>
+</body>
+</html>`, // End of sample HTML
+                        language: 'html', theme: 'vs-light', automaticLayout: true, lineNumbers: 'on',
+                        wordWrap: 'on', minimap: { enabled: true, scale: 1.8, showSlider: 'mouseover', renderCharacters: false }, // Adjusted minimap
+                        scrollbar: { verticalScrollbarSize:10, horizontalScrollbarSize:10, arrowSize:12, useShadows: false },
+                        fontSize: 14, padding: { top: 12, bottom: 12 }, // Added padding
+                        renderLineHighlight: 'gutter', // More subtle line highlight
+                        roundedSelection: true,
+                        occurrencesHighlight: 'off', // Can be 'on' or 'off'
+                        selectionHighlight: false,
+                        folding: true,
+                        matchBrackets: 'near',
+                    });
+                    htmlEditorInstance.onDidChangeModelContent(debouncedUpdateActivePreviews);
+                    setInitialActiveTab(); // This will also trigger first preview update
+                } catch (error) {
+                     logError(`Monaco Editor initialization failed: ${error.message}`);
+                     editorContainer.innerHTML = `<div class="p-5 text-[var(--error-color-text)]">Failed to load the code editor. Please try refreshing the page.</div>`;
+                     [clearBtn,copyCodeBtn,pasteCodeBtn,importBtn,exportBtn].forEach(b => b && (b.disabled=true));
+                }
+            });
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                if (!htmlEditorInstance && tab.dataset.tab === 'html') { logError("Editor is not initialized."); return; }
+                if (getComputedStyle(tab).display === 'none') return; // Do not process clicks on hidden tabs
+
+                const targetTabName = tab.dataset.tab;
+                tabs.forEach(t => t.classList.remove('active'));
+                tabContents.forEach(c => { c.classList.remove('active','z-10'); c.classList.add('z-0'); });
+                
+                tab.classList.add('active');
+                const targetContent = document.getElementById(targetTabName + 'Tab');
+
+                if (targetContent) {
+                    targetContent.classList.add('active','z-10'); targetContent.classList.remove('z-0');
+                    clearErrorConsole(); // Clear errors on any tab switch
+                    if (targetTabName === 'preview') updateSpecificPreview(previewFrame);
+                    else if (targetTabName === 'mobilePreview') updateSpecificPreview(mobilePreviewFrame);
+                    else if (targetTabName === 'html' && htmlEditorInstance) {
+                         setTimeout(() => { // Ensure editor is visible before layout/focus
+                            if (htmlEditorInstance) { htmlEditorInstance.layout(); htmlEditorInstance.focus(); }
+                        }, 50);
+                    }
+                } else { logError(`Tab content for "${targetTabName}" not found.`); }
+                closeMobileSidebar(); // Always close sidebar on tab interaction
+            });
+        });
+
+        function handleSidebarAction(actionFn) {
+            if (!htmlEditorInstance) { logError("Editor is not ready for this action."); closeMobileSidebar(); return; }
+            actionFn();
+            // No automatic closeMobileSidebar() here, actionFn or specific handlers will do it.
+        }
+
+        if(clearBtn) clearBtn.addEventListener('click', () => handleSidebarAction(() => {
+            clearErrorConsole(); htmlEditorInstance.setValue('');
+            const htmlTabButton = document.querySelector('.tab[data-tab="html"]');
+            if (htmlTabButton && !htmlTabButton.classList.contains('active')) {
+                htmlTabButton.click(); // This will close sidebar via tab click handler
+            } else { // HTML tab already active
+                 setTimeout(() => { if(htmlEditorInstance) {htmlEditorInstance.focus(); htmlEditorInstance.setPosition({lineNumber:1,column:1});} }, 50);
+                 closeMobileSidebar();
+            }
+        }));
+
+        if(copyCodeBtn) copyCodeBtn.addEventListener('click', () => handleSidebarAction(async () => {
+            const icon = copyCodeBtn.querySelector('i'), span = copyCodeBtn.querySelector('span');
+            const origIconCls = icon.className, origSpanTxt = span.textContent;
+            try {
+                await navigator.clipboard.writeText(htmlEditorInstance.getValue());
+                icon.className = 'fas fa-check'; span.textContent = 'Copied!';
+                
+                const htmlEditorTab = document.querySelector('.tab[data-tab="html"]');
+                if (htmlEditorTab) {
+                    if (!htmlEditorTab.classList.contains('active')) {
+                        htmlEditorTab.click(); // This will close sidebar
+                        // Selection after click might be tricky due to layout delays
+                        setTimeout(() => { if (htmlEditorInstance) htmlEditorInstance.setSelection(htmlEditorInstance.getModel().getFullModelRange()); }, 150);
+                    } else {
+                        htmlEditorInstance.focus(); htmlEditorInstance.setSelection(htmlEditorInstance.getModel().getFullModelRange());
+                        closeMobileSidebar();
+                    }
+                } else { closeMobileSidebar(); }
+
+                setTimeout(() => { icon.className = origIconCls; span.textContent = origSpanTxt; }, 2000);
+            } catch (err) {
+                logError(`Copy to clipboard failed: ${err.message}`);
+                alert("Failed to copy code. This might be due to browser permissions or if the page is not served over HTTPS. Check the console for details.");
+                icon.className = origIconCls; span.textContent = origSpanTxt;
+                closeMobileSidebar();
+            }
+        }));
+
+        if(pasteCodeBtn) pasteCodeBtn.addEventListener('click', () => handleSidebarAction(async () => {
+            const icon = pasteCodeBtn.querySelector('i'), span = pasteCodeBtn.querySelector('span');
+            const origIconCls = icon.className, origSpanTxt = span.textContent;
+            try {
+                if (!navigator.clipboard || !navigator.clipboard.readText) {
+                    alert("Clipboard API for pasting is not available or permission was denied. Please use Ctrl+V (or Cmd+V) directly in the editor.");
+                    logError("Paste from clipboard API not available/denied.");
+                    closeMobileSidebar(); return;
+                }
+                const textToPaste = await navigator.clipboard.readText();
+                htmlEditorInstance.setValue(textToPaste);
+                showToast("Code pasted successfully!");
+                icon.className = 'fas fa-check'; span.textContent = 'Pasted!';
+                 const htmlEditorTab = document.querySelector('.tab[data-tab="html"]');
+                 if (htmlEditorTab && !htmlEditorTab.classList.contains('active')) {
+                    htmlEditorTab.click(); // Will close sidebar
+                 } else {
+                    closeMobileSidebar();
+                 }
+                setTimeout(() => { icon.className = origIconCls; span.textContent = origSpanTxt; }, 2000);
+            } catch (err) {
+                logError(`Paste from clipboard failed: ${err.message}`);
+                alert(err.name === 'NotAllowedError' ? "Permission to paste from clipboard was denied." : "Failed to paste code. Check the console for details.");
+                icon.className = origIconCls; span.textContent = origSpanTxt;
+                closeMobileSidebar();
+            }
+        }));
+
+        if(importBtn) importBtn.addEventListener('click', () => handleSidebarAction(() => {
+            fileInput.click(); // Sidebar will be closed by fileInput change handler or if no file selected.
+        }));
+
+        fileInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file && htmlEditorInstance) {
+                clearErrorConsole();
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    try {
+                        htmlEditorInstance.setValue(e.target.result);
+                        const htmlTabButton = document.querySelector('.tab[data-tab="html"]');
+                        if (htmlTabButton && !htmlTabButton.classList.contains('active')) {
+                            htmlTabButton.click(); // This closes sidebar via tab click
+                        } else {
+                            htmlEditorInstance.focus(); // Focus if already on HTML tab
+                            closeMobileSidebar();
+                        }
+                    } catch (readErr) { logError(`Error processing file content: ${readErr.message}`); closeMobileSidebar(); }
+                };
+                reader.onerror = () => { logError(`Error reading file: ${reader.error.message}`); closeMobileSidebar(); };
+                reader.readAsText(file);
+            } else if (!htmlEditorInstance) {
+                logError("Editor not initialized. Cannot import file.");
+                closeMobileSidebar();
+            } else { // No file selected or other issue
+                closeMobileSidebar();
+            }
+            event.target.value = null; // Reset file input
+        });
+
+        if(exportBtn) exportBtn.addEventListener('click', () => handleSidebarAction(() => {
+            clearErrorConsole();
+            try {
+                const codeToExport = htmlEditorInstance.getValue();
+                const blob = new Blob([codeToExport], {type:'text/html;charset=utf-8'});
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = 'my_html_page.html'; // More descriptive filename
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(url);
+                showToast("File download initiated!");
+            } catch (exErr) {
+                logError(`Export failed: ${exErr.message}`);
+                alert("Failed to export file. Check console for details.");
+            }
+            closeMobileSidebar();
+        }));
+
+        function setInitialActiveTab() {
+            let activeTabButton = document.querySelector('.tab.active');
+
+            // If current active tab is hidden (e.g. mobile view tab on small screen after resize)
+            if (!activeTabButton || getComputedStyle(activeTabButton).display === 'none') {
+                if(activeTabButton) { // Deactivate the currently (but hidden) active tab
+                    activeTabButton.classList.remove('active');
+                    const oldContent = document.getElementById(activeTabButton.dataset.tab + 'Tab');
+                    if(oldContent) { oldContent.classList.remove('active','z-10'); oldContent.classList.add('z-0'); }
+                }
+                // Try to set Desktop View as default
+                activeTabButton = document.querySelector('.tab[data-tab="preview"]');
+                // If Desktop View is also hidden (shouldn't typically happen unless forced) or not found, fallback to HTML Editor
+                if (!activeTabButton || getComputedStyle(activeTabButton).display === 'none') {
+                    activeTabButton = document.querySelector('.tab[data-tab="html"]');
+                }
+                // As a last resort, find any visible tab (shouldn't be needed with above logic)
+                if (!activeTabButton || getComputedStyle(activeTabButton).display === 'none') {
+                    activeTabButton = Array.from(tabs).find(t => getComputedStyle(t).display !== 'none');
+                }
+            }
+
+            if (activeTabButton) { // An active and visible tab is found or set
+                // Ensure only this one is active visually
+                tabs.forEach(t => t.classList.remove('active'));
+                tabContents.forEach(tc => { tc.classList.remove('active','z-10'); tc.classList.add('z-0'); });
+
+                activeTabButton.classList.add('active');
+                const activeContentElement = document.getElementById(activeTabButton.dataset.tab + 'Tab');
+                if (activeContentElement) {
+                    activeContentElement.classList.add('active','z-10'); activeContentElement.classList.remove('z-0');
+
+                    const activeTabName = activeTabButton.dataset.tab;
+                    if (activeTabName === 'html' && htmlEditorInstance) {
+                        setTimeout(() => { if (htmlEditorInstance) { htmlEditorInstance.layout(); /* htmlEditorInstance.focus(); */ } }, 50); // Focus might be too aggressive on load
+                    }
+                    // Update previews if they are made active (also handles initial load for default active tab)
+                    updateActivePreviewPanes();
+                } else {
+                    logError(`Initial active tab content for "${activeTabButton.dataset.tab}" not found.`);
+                }
+            } else {
+                logError("No suitable tab found to be set as active.");
+            }
+        }
+        // Call on load and on resize (debounced)
+        window.addEventListener('resize', debounce(setInitialActiveTab, 250));
+        // setInitialActiveTab(); // Called after Monaco init now
+    });
+</script>
+</body>
+</html>
