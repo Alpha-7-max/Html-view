@@ -18,15 +18,18 @@
         /* Custom CSS - Modern Soft UI with Uniform Background and White Active Elements */
         :root {
             --bg-primary: #ffffff;       /* PURE WHITE - for buttons, active tab, elements that need to stand out */
-            --bg-secondary: #f1f5f9;     /* Tailwind slate-100 - Main UI chrome background (sidebar, header, content area, footer) */
-            --bg-tertiary: #e2e8f0;      /* Tailwind slate-200 - for hover states on slate-100 */
+            --bg-secondary: #f1f5f9;     /* Tailwind slate-100 - Main UI chrome background */
+            --bg-tertiary: #e2e8f0;      /* Tailwind slate-200 - for hover states on slate-100 backgrounds */
             --bg-accent-light: #eff6ff;  /* Tailwind blue-50 - for light accent backgrounds */
 
-            --border-color: #cbd5e1;       /* Tailwind slate-300 - default borders */
-            --border-color-strong: #94a3b8;  /* Tailwind slate-400 - for stronger/hovered borders */
+            /* --- Updated Border Colors for Softer Lines --- */
+            --border-color-ui: #e2e8f0;      /* Tailwind slate-200 - for main UI structure borders (very soft) */
+            --border-color-element: #d1d5db; /* Tailwind gray-300 - for borders on white elements (buttons, active tab) */
+            --border-color-strong: #9ca3af;   /* Tailwind gray-400 - for stronger/hovered borders on white elements */
             --border-accent-subtle: #93c5fd; /* Tailwind blue-300 - for accent border on hover */
+            /* --- End Updated Border Colors --- */
 
-            --text-primary: #1f2937;     /* Tailwind gray-800 / slate-800 - main text headings */
+            --text-primary: #1f2937;     /* Tailwind slate-800 - main text headings */
             --text-secondary: #64748b;   /* Tailwind slate-500 - secondary text, icons, placeholders */
             --text-accent: #2563eb;      /* Tailwind blue-600 - for accented text, active tab text */
             --text-on-accent: #ffffff;   /* Text on a solid accent background */
@@ -62,13 +65,13 @@
         /* Header */
         .header {
             background-color: var(--header-bg);
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color-ui); /* Softer border */
             box-shadow: var(--shadow-soft); 
             color: var(--text-primary);
         }
         #sidebarToggleBtn {
             background-color: var(--bg-primary); 
-            border: 1px solid var(--border-color);
+            border: 1px solid var(--border-color-element); /* Softer border for white element */
             color: var(--text-secondary);
             border-radius: 6px; 
             width: 32px; height: 32px; 
@@ -76,7 +79,7 @@
             transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease; 
         }
         #sidebarToggleBtn:hover {
-            border-color: var(--border-color-strong);
+            border-color: var(--border-color-strong); /* Stronger but still soft */
             color: var(--text-primary);
             background-color: var(--bg-tertiary);
             box-shadow: var(--shadow-medium); 
@@ -92,7 +95,7 @@
         .sidebar {
             width: 240px;
             background-color: var(--sidebar-bg);
-            border-right: 1px solid var(--border-color);
+            border-right: 1px solid var(--border-color-ui); /* Softer border */
             padding: 16px 12px;
         }
 
@@ -104,7 +107,7 @@
             margin-bottom: 6px;
             text-align: left;
             background-color: var(--bg-primary); 
-            border: 1px solid var(--border-color);
+            border: 1px solid var(--border-color-element); /* Softer border for white element */
             cursor: pointer;
             border-radius: 8px; 
             color: var(--text-secondary);
@@ -120,7 +123,7 @@
             text-align: center;
             color: var(--text-secondary);
             transition: color 0.2s ease;
-            font-size: 1em; /* Base icon size */
+            font-size: 1em; 
         }
         .sidebar button:hover {
             background-color: var(--bg-tertiary); 
@@ -146,7 +149,7 @@
             opacity: 0.6; cursor: not-allowed;
             background-color: var(--bg-primary) !important;
             color: var(--text-secondary) !important;
-            border-color: var(--border-color) !important;
+            border-color: var(--border-color-element) !important; /* Use element border */
             box-shadow: none !important; transform: none !important;
         }
         .sidebar button:disabled i,
@@ -154,7 +157,8 @@
             color: var(--text-secondary) !important;
         }
         .sidebar hr {
-            border: none; border-top: 1px solid var(--border-color); margin: 20px 0px;
+            border: none; border-top: 1px solid var(--border-color-ui); /* Softer hr */
+            margin: 20px 0px;
         }
         .sidebar button i.fa-check {
             color: var(--text-green-500) !important;
@@ -162,14 +166,14 @@
 
         @media (max-width: 767px) {
             .sidebar button {
-                padding: 7px 10px; /* Reduced padding */
-                font-size: 12px;   /* Reduced font size */
-                margin-bottom: 4px; /* Reduced margin */
+                padding: 7px 10px; 
+                font-size: 12px;   
+                margin-bottom: 4px; 
             }
             .sidebar button i { 
-                margin-right: 8px; /* Reduced icon margin */
-                width: 16px;       /* Reduced icon container width */
-                font-size: 0.9em;  /* Slightly smaller icon */
+                margin-right: 8px; 
+                width: 16px;       
+                font-size: 0.9em;  
             }
         }
 
@@ -195,7 +199,7 @@
         .error-console {
             background-color: var(--error-bg);
             color: var(--error-color-text);
-            border-top: 1px solid var(--border-color);
+            border-top: 1px solid var(--border-color-ui); /* Softer border */
         }
         .error-console pre {
             margin: 0; white-space: pre-wrap; word-break: break-all;
@@ -209,7 +213,7 @@
         .tabs-container {
             overflow-x: auto; -webkit-overflow-scrolling: touch;
             background-color: var(--tabs-bg);
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color-ui); /* Softer border */
             padding: 8px 12px 0 12px; 
         }
         .tabs-container::-webkit-scrollbar { height: 3px; }
@@ -242,7 +246,7 @@
         }
         .tabs .tab.active {
             background-color: var(--bg-primary); 
-            border-color: var(--border-color); 
+            border-color: var(--border-color-element); /* Softer border for white element */
             border-bottom-color: var(--bg-primary); 
             color: var(--text-accent); 
             font-weight: 600; 
@@ -265,7 +269,7 @@
         /* Footer */
         .footer {
             background-color: var(--header-bg); 
-            border-top: 1px solid var(--border-color);
+            border-top: 1px solid var(--border-color-ui); /* Softer border */
             color: var(--text-secondary);
         }
 
@@ -285,7 +289,7 @@
             border-radius: 5px;
         }
         ::-webkit-scrollbar-thumb {
-            background: var(--border-color-strong); 
+            background: var(--border-color-strong); /* Use updated strong border color */
             border-radius: 5px;
             border: 2px solid var(--bg-tertiary); 
         }
@@ -304,15 +308,17 @@
                 <i class="fas fa-bars"></i>
             </button>
             <div class="title font-semibold text-lg flex items-center">
+                <!-- NEW LOGO SVG -->
                 <svg width="40" height="40" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" class="mr-2 h-7 w-7">
-                    <circle cx="50" cy="50" r="45" fill="#2196F3"/>
-                    <path d="M35,20 Q20,20 20,35 L20,65 Q20,80 35,80"
-                          fill="none" stroke="#ffffff" stroke-width="6" stroke-linecap="round"/>
-                    <path d="M65,20 Q80,20 80,35 L80,65 Q80,80 65,80"
-                          fill="none" stroke="#ffffff" stroke-width="6" stroke-linecap="round"/>
-                    <rect x="30" y="35" width="40" height="30" fill="#333" rx="2"/>
-                    <circle cx="40" cy="50" r="5" fill="#ffffff"/>
-                    <rect x="50" y="45" width="15" height="10" fill="#ffffff" rx="1"/>
+                  <defs>
+                    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" style="stop-color:#3b82f6; stop-opacity:1" />
+                      <stop offset="100%" style="stop-color:#2563eb; stop-opacity:1" />
+                    </linearGradient>
+                  </defs>
+                  <circle cx="50" cy="50" r="45" fill="url(#logoGradient)"/>
+                  <path d="M35 30 Q25 50 35 70" stroke="#FFFFFF" stroke-width="8" fill="none" stroke-linecap="round"/>
+                  <path d="M65 30 Q75 50 65 70" stroke="#FFFFFF" stroke-width="8" fill="none" stroke-linecap="round"/>
                 </svg>
                 HTML Studio
             </div>
