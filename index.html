@@ -63,7 +63,7 @@
         .header {
             background-color: var(--header-bg);
             border-bottom: 1px solid var(--border-color);
-            box-shadow: var(--shadow-soft);
+            box-shadow: var(--shadow-soft); /* Header itself has a soft shadow */
             color: var(--text-primary);
         }
         #sidebarToggleBtn {
@@ -72,11 +72,14 @@
             color: var(--text-secondary);
             border-radius: 6px; 
             width: 32px; height: 32px; 
+            box-shadow: var(--shadow-soft); /* ADDED */
+            transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease; /* ADDED transition */
         }
         #sidebarToggleBtn:hover {
             border-color: var(--border-color-strong);
             color: var(--text-primary);
             background-color: var(--bg-tertiary);
+            box-shadow: var(--shadow-medium); /* ADDED */
         }
         #sidebarToggleBtn i {
             font-size: 1rem; 
@@ -119,7 +122,7 @@
             transition: color 0.2s ease;
         }
         .sidebar button:hover {
-            background-color: var(--bg-tertiary); /* Hover is now slate-200 */
+            background-color: var(--bg-tertiary); 
             color: var(--text-accent);
             border-color: var(--border-accent-subtle); 
             box-shadow: var(--shadow-medium);
@@ -168,9 +171,9 @@
             width: 320px;
             aspect-ratio: 9 / 19.5; 
             max-width: 95%; max-height: 95%; box-sizing: border-box;
-            border: 12px solid #1f2937; /* slate-800 for frame */
+            border: 12px solid #1f2937; 
             border-radius: 36px; 
-            background-color: #0f172a; /* slate-900 for inner bezel */
+            background-color: #0f172a; 
             box-shadow: var(--shadow-strong);
             overflow: hidden; margin: auto; display: flex;
         }
@@ -179,7 +182,7 @@
             border-radius: 24px; 
         }
         #mobilePreviewTab { 
-            background-color: var(--content-bg); /* slate-100 */
+            background-color: var(--content-bg);
         }
 
         .error-console {
@@ -198,7 +201,7 @@
         /* Tabs */
         .tabs-container {
             overflow-x: auto; -webkit-overflow-scrolling: touch;
-            background-color: var(--tabs-bg); /* slate-100 */
+            background-color: var(--tabs-bg);
             border-bottom: 1px solid var(--border-color);
             padding: 8px 12px 0 12px; 
         }
@@ -213,17 +216,19 @@
             background-color: transparent; 
             color: var(--text-secondary);
             border-radius: 6px 6px 0 0; 
-            transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+            transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease; /* MODIFIED transition */
             position: relative; 
-            font-weight: 500; 
+            font-weight: 500;
+            box-shadow: var(--shadow-soft); /* ADDED */
         }
         .tabs .tab i {
             color: var(--text-secondary);
             transition: color 0.2s ease;
         }
         .tabs .tab:hover:not(.active) { 
-            background-color: var(--bg-tertiary); /* Hover is now slate-200 */
+            background-color: var(--bg-tertiary);
             color: var(--text-primary);
+            box-shadow: var(--shadow-medium); /* ADDED */
         }
         .tabs .tab:hover:not(.active) i {
             color: var(--text-primary);
@@ -235,31 +240,31 @@
             color: var(--text-accent); 
             font-weight: 600; 
             z-index: 1; 
+            /* Active tab retains --shadow-soft from the base .tab style */
         }
         .tabs .tab.active i {
             color: var(--text-accent);
         }
         
         .content { 
-            background-color: var(--tabs-bg);  /* slate-100, though mostly covered by viewer */
+            background-color: var(--tabs-bg); 
         }
         .viewer > .tab-content { 
-            background-color: var(--content-bg); /* Content *panes* are slate-100 */
+            background-color: var(--content-bg); 
         }
-        /* Monaco editor and preview iframe content will have their own white backgrounds */
-        #htmlTab { background-color: var(--content-bg); } /* slate-100 */
-        #previewTab { background-color: var(--content-bg); } /* slate-100 */
+        #htmlTab { background-color: var(--content-bg); }
+        #previewTab { background-color: var(--content-bg); }
 
 
         /* Footer */
         .footer {
-            background-color: var(--header-bg);  /* slate-100 */
+            background-color: var(--header-bg); 
             border-top: 1px solid var(--border-color);
             color: var(--text-secondary);
         }
 
         #toastNotification {
-            background-color: var(--text-primary); /* slate-800 */
+            background-color: var(--text-primary); 
             color: var(--bg-primary); 
             box-shadow: var(--shadow-medium);
             border-radius: 6px;
@@ -270,16 +275,16 @@
             height: 10px;
         }
         ::-webkit-scrollbar-track {
-            background: var(--bg-tertiary); /* slate-200 */
+            background: var(--bg-tertiary); 
             border-radius: 5px;
         }
         ::-webkit-scrollbar-thumb {
-            background: var(--border-color-strong);  /* slate-400 */
+            background: var(--border-color-strong); 
             border-radius: 5px;
-            border: 2px solid var(--bg-tertiary); /* slate-200 */
+            border: 2px solid var(--bg-tertiary); 
         }
         ::-webkit-scrollbar-thumb:hover {
-            background: var(--text-secondary); /* slate-500 */
+            background: var(--text-secondary); 
         }
     </style>
 
@@ -367,7 +372,7 @@
 </div>
 
 <script>
-    // JavaScript remains the same as the previous version
+    // JavaScript remains the same
     document.addEventListener('DOMContentLoaded', () => {
         let htmlEditorInstance = null;
         const sidebar = document.getElementById('sidebar');
