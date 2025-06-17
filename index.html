@@ -17,25 +17,25 @@
     <style>
         /* Custom CSS - Modern Soft UI with Uniform Background and White Active Elements */
         :root {
-            --bg-primary: #ffffff; /* PURE WHITE - for buttons, active tab, elements that need to stand out */
-            --bg-secondary: #f9fafb; /* Tailwind gray-50 - Main UI chrome background (sidebar, header, content area, footer) */
-            --bg-tertiary: #f3f4f6;  /* Tailwind gray-100 - for hover states */
-            --bg-accent-light: #eff6ff; /* Tailwind blue-50 - for light accent backgrounds */
+            --bg-primary: #ffffff;       /* PURE WHITE - for buttons, active tab, elements that need to stand out */
+            --bg-secondary: #f1f5f9;     /* Tailwind slate-100 - Main UI chrome background (sidebar, header, content area, footer) */
+            --bg-tertiary: #e2e8f0;      /* Tailwind slate-200 - for hover states on slate-100 */
+            --bg-accent-light: #eff6ff;  /* Tailwind blue-50 - for light accent backgrounds */
 
-            --border-color: #e5e7eb; /* Tailwind gray-300 - default borders */
-            --border-color-strong: #d1d5db; /* Tailwind gray-400 - for stronger/hovered borders */
+            --border-color: #cbd5e1;       /* Tailwind slate-300 - default borders */
+            --border-color-strong: #94a3b8;  /* Tailwind slate-400 - for stronger/hovered borders */
             --border-accent-subtle: #93c5fd; /* Tailwind blue-300 - for accent border on hover */
 
-            --text-primary: #1f2937; /* Tailwind gray-800 - main text headings */
-            --text-secondary: #6b7280; /* Tailwind gray-500 - secondary text, icons, placeholders */
-            --text-accent: #2563eb; /* Tailwind blue-600 - for accented text, active tab text */
-            --text-on-accent: #ffffff; /* Text on a solid accent background */
+            --text-primary: #1f2937;     /* Tailwind gray-800 / slate-800 - main text headings */
+            --text-secondary: #64748b;   /* Tailwind slate-500 - secondary text, icons, placeholders */
+            --text-accent: #2563eb;      /* Tailwind blue-600 - for accented text, active tab text */
+            --text-on-accent: #ffffff;   /* Text on a solid accent background */
 
-            --accent-color: #3b82f6;  /* Tailwind blue-500 - primary accent color */
-            --accent-color-hover: #2563eb; /* Tailwind blue-600 - hover state for accent */
+            --accent-color: #3b82f6;     /* Tailwind blue-500 - primary accent color */
+            --accent-color-hover: #2563eb;/* Tailwind blue-600 - hover state for accent */
 
             --error-color-text: #b91c1c; /* Tailwind red-700 - for error message text */
-            --error-bg: #fee2e2; /* Tailwind red-100 - for error message background */
+            --error-bg: #fee2e2;         /* Tailwind red-100 - for error message background */
 
             --font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
             --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
@@ -119,7 +119,7 @@
             transition: color 0.2s ease;
         }
         .sidebar button:hover {
-            background-color: var(--bg-tertiary);
+            background-color: var(--bg-tertiary); /* Hover is now slate-200 */
             color: var(--text-accent);
             border-color: var(--border-accent-subtle); 
             box-shadow: var(--shadow-medium);
@@ -168,9 +168,9 @@
             width: 320px;
             aspect-ratio: 9 / 19.5; 
             max-width: 95%; max-height: 95%; box-sizing: border-box;
-            border: 12px solid #1f2937; 
+            border: 12px solid #1f2937; /* slate-800 for frame */
             border-radius: 36px; 
-            background-color: #111827; 
+            background-color: #0f172a; /* slate-900 for inner bezel */
             box-shadow: var(--shadow-strong);
             overflow: hidden; margin: auto; display: flex;
         }
@@ -179,7 +179,7 @@
             border-radius: 24px; 
         }
         #mobilePreviewTab { 
-            background-color: var(--content-bg);
+            background-color: var(--content-bg); /* slate-100 */
         }
 
         .error-console {
@@ -198,7 +198,7 @@
         /* Tabs */
         .tabs-container {
             overflow-x: auto; -webkit-overflow-scrolling: touch;
-            background-color: var(--tabs-bg);
+            background-color: var(--tabs-bg); /* slate-100 */
             border-bottom: 1px solid var(--border-color);
             padding: 8px 12px 0 12px; 
         }
@@ -222,7 +222,7 @@
             transition: color 0.2s ease;
         }
         .tabs .tab:hover:not(.active) { 
-            background-color: var(--bg-tertiary);
+            background-color: var(--bg-tertiary); /* Hover is now slate-200 */
             color: var(--text-primary);
         }
         .tabs .tab:hover:not(.active) i {
@@ -241,25 +241,25 @@
         }
         
         .content { 
-            background-color: var(--tabs-bg); 
+            background-color: var(--tabs-bg);  /* slate-100, though mostly covered by viewer */
         }
         .viewer > .tab-content { 
-            background-color: var(--content-bg); /* Content *panes* are light gray */
+            background-color: var(--content-bg); /* Content *panes* are slate-100 */
         }
         /* Monaco editor and preview iframe content will have their own white backgrounds */
-        #htmlTab { background-color: var(--content-bg); }
-        #previewTab { background-color: var(--content-bg); }
+        #htmlTab { background-color: var(--content-bg); } /* slate-100 */
+        #previewTab { background-color: var(--content-bg); } /* slate-100 */
 
 
         /* Footer */
         .footer {
-            background-color: var(--header-bg); 
+            background-color: var(--header-bg);  /* slate-100 */
             border-top: 1px solid var(--border-color);
             color: var(--text-secondary);
         }
 
         #toastNotification {
-            background-color: var(--text-primary); 
+            background-color: var(--text-primary); /* slate-800 */
             color: var(--bg-primary); 
             box-shadow: var(--shadow-medium);
             border-radius: 6px;
@@ -270,16 +270,16 @@
             height: 10px;
         }
         ::-webkit-scrollbar-track {
-            background: var(--bg-tertiary); 
+            background: var(--bg-tertiary); /* slate-200 */
             border-radius: 5px;
         }
         ::-webkit-scrollbar-thumb {
-            background: var(--border-color-strong); 
+            background: var(--border-color-strong);  /* slate-400 */
             border-radius: 5px;
-            border: 2px solid var(--bg-tertiary); 
+            border: 2px solid var(--bg-tertiary); /* slate-200 */
         }
         ::-webkit-scrollbar-thumb:hover {
-            background: var(--text-secondary); 
+            background: var(--text-secondary); /* slate-500 */
         }
     </style>
 
