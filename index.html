@@ -63,23 +63,23 @@
         .header {
             background-color: var(--header-bg);
             border-bottom: 1px solid var(--border-color);
-            box-shadow: var(--shadow-soft); /* Header itself has a soft shadow */
+            box-shadow: var(--shadow-soft); 
             color: var(--text-primary);
         }
         #sidebarToggleBtn {
-            background-color: var(--bg-primary); /* White */
+            background-color: var(--bg-primary); 
             border: 1px solid var(--border-color);
             color: var(--text-secondary);
             border-radius: 6px; 
             width: 32px; height: 32px; 
-            box-shadow: var(--shadow-soft); /* ADDED */
-            transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease; /* ADDED transition */
+            box-shadow: var(--shadow-soft); 
+            transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease; 
         }
         #sidebarToggleBtn:hover {
             border-color: var(--border-color-strong);
             color: var(--text-primary);
             background-color: var(--bg-tertiary);
-            box-shadow: var(--shadow-medium); /* ADDED */
+            box-shadow: var(--shadow-medium); 
         }
         #sidebarToggleBtn i {
             font-size: 1rem; 
@@ -103,7 +103,7 @@
             padding: 10px 14px;
             margin-bottom: 6px;
             text-align: left;
-            background-color: var(--bg-primary); /* Sidebar buttons are white */
+            background-color: var(--bg-primary); 
             border: 1px solid var(--border-color);
             cursor: pointer;
             border-radius: 8px; 
@@ -120,6 +120,7 @@
             text-align: center;
             color: var(--text-secondary);
             transition: color 0.2s ease;
+            font-size: 1em; /* Base icon size */
         }
         .sidebar button:hover {
             background-color: var(--bg-tertiary); 
@@ -161,9 +162,15 @@
 
         @media (max-width: 767px) {
             .sidebar button {
-                padding: 9px 12px; font-size: 13px;
+                padding: 7px 10px; /* Reduced padding */
+                font-size: 12px;   /* Reduced font size */
+                margin-bottom: 4px; /* Reduced margin */
             }
-            .sidebar button i { margin-right: 10px; }
+            .sidebar button i { 
+                margin-right: 8px; /* Reduced icon margin */
+                width: 16px;       /* Reduced icon container width */
+                font-size: 0.9em;  /* Slightly smaller icon */
+            }
         }
 
         /* Mobile Frame */
@@ -216,10 +223,10 @@
             background-color: transparent; 
             color: var(--text-secondary);
             border-radius: 6px 6px 0 0; 
-            transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease; /* MODIFIED transition */
+            transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease; 
             position: relative; 
             font-weight: 500;
-            box-shadow: var(--shadow-soft); /* ADDED */
+            box-shadow: var(--shadow-soft); 
         }
         .tabs .tab i {
             color: var(--text-secondary);
@@ -228,19 +235,18 @@
         .tabs .tab:hover:not(.active) { 
             background-color: var(--bg-tertiary);
             color: var(--text-primary);
-            box-shadow: var(--shadow-medium); /* ADDED */
+            box-shadow: var(--shadow-medium); 
         }
         .tabs .tab:hover:not(.active) i {
             color: var(--text-primary);
         }
         .tabs .tab.active {
-            background-color: var(--bg-primary); /* Active tab is white */
+            background-color: var(--bg-primary); 
             border-color: var(--border-color); 
-            border-bottom-color: var(--bg-primary); /* "Connected" look with white */
+            border-bottom-color: var(--bg-primary); 
             color: var(--text-accent); 
             font-weight: 600; 
             z-index: 1; 
-            /* Active tab retains --shadow-soft from the base .tab style */
         }
         .tabs .tab.active i {
             color: var(--text-accent);
@@ -368,7 +374,7 @@
 
 <!-- Footer -->
 <div class="footer py-2.5 px-5 text-center text-xs flex-shrink-0">
-    HTML Studio © 2025. Crafted with <i class="fas fa-heart text-red-500"></i>.
+    HTML Studio © 2025. Crafted with you <i class="fas fa-heart text-red-500"></i>.
 </div>
 
 <script>
