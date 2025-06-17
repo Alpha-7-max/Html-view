@@ -17,28 +17,26 @@
     <style>
         /* Custom CSS - Modern Soft UI with Uniform Background and White Active Elements */
         :root {
-            --bg-primary: #ffffff;       /* PURE WHITE - for buttons, active tab, elements that need to stand out */
-            --bg-secondary: #f1f5f9;     /* Tailwind slate-100 - Main UI chrome background */
-            --bg-tertiary: #e2e8f0;      /* Tailwind slate-200 - for hover states on slate-100 backgrounds */
-            --bg-accent-light: #eff6ff;  /* Tailwind blue-50 - for light accent backgrounds */
+            --bg-primary: #ffffff;       
+            --bg-secondary: #f1f5f9;     
+            --bg-tertiary: #e2e8f0;      
+            --bg-accent-light: #eff6ff;  
 
-            /* --- Updated Border Colors for Softer Lines --- */
-            --border-color-ui: #e2e8f0;      /* Tailwind slate-200 - for main UI structure borders (very soft) */
-            --border-color-element: #d1d5db; /* Tailwind gray-300 - for borders on white elements (buttons, active tab) */
-            --border-color-strong: #9ca3af;   /* Tailwind gray-400 - for stronger/hovered borders on white elements */
-            --border-accent-subtle: #93c5fd; /* Tailwind blue-300 - for accent border on hover */
-            /* --- End Updated Border Colors --- */
+            --border-color-ui: #e2e8f0;      
+            --border-color-element: #d1d5db; 
+            --border-color-strong: #9ca3af;   
+            --border-accent-subtle: #93c5fd; 
 
-            --text-primary: #1f2937;     /* Tailwind slate-800 - main text headings */
-            --text-secondary: #64748b;   /* Tailwind slate-500 - secondary text, icons, placeholders */
-            --text-accent: #2563eb;      /* Tailwind blue-600 - for accented text, active tab text */
-            --text-on-accent: #ffffff;   /* Text on a solid accent background */
+            --text-primary: #1f2937;     
+            --text-secondary: #64748b;   
+            --text-accent: #2563eb;      
+            --text-on-accent: #ffffff;   
 
-            --accent-color: #3b82f6;     /* Tailwind blue-500 - primary accent color */
-            --accent-color-hover: #2563eb;/* Tailwind blue-600 - hover state for accent */
+            --accent-color: #3b82f6;     
+            --accent-color-hover: #2563eb;
 
-            --error-color-text: #b91c1c; /* Tailwind red-700 - for error message text */
-            --error-bg: #fee2e2;         /* Tailwind red-100 - for error message background */
+            --error-color-text: #b91c1c; 
+            --error-bg: #fee2e2;         
 
             --font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
             --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
@@ -49,11 +47,10 @@
 
             --text-green-500: #10B981;
             
-            /* Core Background Colors for UI sections */
             --sidebar-bg: var(--bg-secondary);
             --tabs-bg: var(--bg-secondary);
-            --header-bg: var(--bg-secondary);
-            --content-bg: var(--bg-secondary); /* Background for the content *panes* */
+            /* --header-bg: var(--bg-secondary); REMOVED as header is gone */
+            --content-bg: var(--bg-secondary); 
         }
 
         body {
@@ -62,24 +59,23 @@
             color: var(--text-primary);
         }
 
-        /* Header */
-        .header {
-            background-color: var(--header-bg);
-            border-bottom: 1px solid var(--border-color-ui); /* Softer border */
-            box-shadow: var(--shadow-soft); 
-            color: var(--text-primary);
-        }
+        /* Sidebar Toggle Button (Moved from Header) */
         #sidebarToggleBtn {
             background-color: var(--bg-primary); 
-            border: 1px solid var(--border-color-element); /* Softer border for white element */
+            border: 1px solid var(--border-color-element); 
             color: var(--text-secondary);
             border-radius: 6px; 
             width: 32px; height: 32px; 
             box-shadow: var(--shadow-soft); 
             transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease; 
+            /* Positioning for mobile */
+            position: fixed;
+            top: 12px;
+            left: 12px;
+            z-index: 40; /* Above sidebar overlay (z-20) and sidebar (z-30) */
         }
         #sidebarToggleBtn:hover {
-            border-color: var(--border-color-strong); /* Stronger but still soft */
+            border-color: var(--border-color-strong); 
             color: var(--text-primary);
             background-color: var(--bg-tertiary);
             box-shadow: var(--shadow-medium); 
@@ -87,17 +83,21 @@
         #sidebarToggleBtn i {
             font-size: 1rem; 
         }
-         .header .title .h-7.w-7 { 
-            height: 1.75rem; width: 1.75rem; 
-        }
 
         /* Sidebar */
         .sidebar {
             width: 240px;
             background-color: var(--sidebar-bg);
-            border-right: 1px solid var(--border-color-ui); /* Softer border */
+            border-right: 1px solid var(--border-color-ui); 
             padding: 16px 12px;
+            /* On mobile, sidebar needs top padding to not overlap with fixed toggle button */
         }
+        @media (max-width: 767px) {
+            .sidebar {
+                padding-top: 56px; /* 12px (button top) + 32px (button height) + 12px (spacing) */
+            }
+        }
+
 
         .sidebar button {
             display: flex;
@@ -107,7 +107,7 @@
             margin-bottom: 6px;
             text-align: left;
             background-color: var(--bg-primary); 
-            border: 1px solid var(--border-color-element); /* Softer border for white element */
+            border: 1px solid var(--border-color-element); 
             cursor: pointer;
             border-radius: 8px; 
             color: var(--text-secondary);
@@ -149,7 +149,7 @@
             opacity: 0.6; cursor: not-allowed;
             background-color: var(--bg-primary) !important;
             color: var(--text-secondary) !important;
-            border-color: var(--border-color-element) !important; /* Use element border */
+            border-color: var(--border-color-element) !important; 
             box-shadow: none !important; transform: none !important;
         }
         .sidebar button:disabled i,
@@ -157,7 +157,7 @@
             color: var(--text-secondary) !important;
         }
         .sidebar hr {
-            border: none; border-top: 1px solid var(--border-color-ui); /* Softer hr */
+            border: none; border-top: 1px solid var(--border-color-ui); 
             margin: 20px 0px;
         }
         .sidebar button i.fa-check {
@@ -199,7 +199,7 @@
         .error-console {
             background-color: var(--error-bg);
             color: var(--error-color-text);
-            border-top: 1px solid var(--border-color-ui); /* Softer border */
+            border-top: 1px solid var(--border-color-ui); 
         }
         .error-console pre {
             margin: 0; white-space: pre-wrap; word-break: break-all;
@@ -213,7 +213,7 @@
         .tabs-container {
             overflow-x: auto; -webkit-overflow-scrolling: touch;
             background-color: var(--tabs-bg);
-            border-bottom: 1px solid var(--border-color-ui); /* Softer border */
+            border-bottom: 1px solid var(--border-color-ui); 
             padding: 8px 12px 0 12px; 
         }
         .tabs-container::-webkit-scrollbar { height: 3px; }
@@ -246,7 +246,7 @@
         }
         .tabs .tab.active {
             background-color: var(--bg-primary); 
-            border-color: var(--border-color-element); /* Softer border for white element */
+            border-color: var(--border-color-element); 
             border-bottom-color: var(--bg-primary); 
             color: var(--text-accent); 
             font-weight: 600; 
@@ -265,14 +265,6 @@
         #htmlTab { background-color: var(--content-bg); }
         #previewTab { background-color: var(--content-bg); }
 
-
-        /* Footer */
-        .footer {
-            background-color: var(--header-bg); 
-            border-top: 1px solid var(--border-color-ui); /* Softer border */
-            color: var(--text-secondary);
-        }
-
         #toastNotification {
             background-color: var(--text-primary); 
             color: var(--bg-primary); 
@@ -289,7 +281,7 @@
             border-radius: 5px;
         }
         ::-webkit-scrollbar-thumb {
-            background: var(--border-color-strong); /* Use updated strong border color */
+            background: var(--border-color-strong); 
             border-radius: 5px;
             border: 2px solid var(--bg-tertiary); 
         }
@@ -300,95 +292,71 @@
 
 </head>
 <body class="flex flex-col h-screen text-sm overflow-hidden">
-    <!-- Header -->
-    <div class="header py-3 px-5 flex justify-between items-center z-20 flex-shrink-0">
-        <div class="flex items-center">
-            <button id="sidebarToggleBtn" aria-label="Toggle sidebar"
-                    class="md:hidden flex items-center justify-center mr-3 -ml-1 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500">
-                <i class="fas fa-bars"></i>
-            </button>
-            <div class="title font-semibold text-lg flex items-center">
-                <!-- NEW LOGO SVG -->
-                <svg width="40" height="40" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" class="mr-2 h-7 w-7">
-                  <defs>
-                    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" style="stop-color:#3b82f6; stop-opacity:1" />
-                      <stop offset="100%" style="stop-color:#2563eb; stop-opacity:1" />
-                    </linearGradient>
-                  </defs>
-                  <circle cx="50" cy="50" r="45" fill="url(#logoGradient)"/>
-                  <path d="M35 30 Q25 50 35 70" stroke="#FFFFFF" stroke-width="8" fill="none" stroke-linecap="round"/>
-                  <path d="M65 30 Q75 50 65 70" stroke="#FFFFFF" stroke-width="8" fill="none" stroke-linecap="round"/>
-                </svg>
-                HTML Studio
-            </div>
-        </div>
+    <!-- Mobile Sidebar Toggle Button -->
+    <button id="sidebarToggleBtn" aria-label="Toggle sidebar"
+            class="md:hidden flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Toast Notification -->
+    <div id="toastNotification" class="fixed top-12 left-1/2 transform -translate-x-1/2 py-2.5 px-5 rounded-md shadow-lg text-sm z-50 opacity-0 transition-opacity duration-300 ease-in-out pointer-events-none">
+        Pasted!
     </div>
 
-<!-- Toast Notification -->
-<div id="toastNotification" class="fixed top-16 left-1/2 transform -translate-x-1/2 py-2.5 px-5 rounded-md shadow-lg text-sm z-50 opacity-0 transition-opacity duration-300 ease-in-out pointer-events-none">
-    Pasted!
-</div>
-
-<!-- Main Content Area -->
-<div class="main flex flex-1 overflow-hidden relative">
-    <!-- Sidebar -->
-    <div id="sidebar" class="sidebar fixed inset-y-0 left-0 z-30 transform -translate-x-full md:relative md:translate-x-0 overflow-y-auto transition-transform duration-300 ease-in-out md:flex-shrink-0">
-        <button id="clearBtn"><i class="fas fa-eraser"></i><span>Clear Editor</span></button>
-        <button id="copyCodeBtn"><i class="fas fa-copy"></i><span>Copy Code</span></button>
-        <button id="pasteCodeBtn"><i class="fas fa-paste"></i><span>Paste Code</span></button>
-        <hr>
-        <button id="importBtn"><i class="fas fa-upload"></i><span>Import</span></button>
-        <input type="file" id="fileInput" accept=".txt,.html" class="sr-only">
-        <button id="exportBtn"><i class="fas fa-download"></i><span>Download</span></button>
-        <hr>
-    </div>
-    <div id="sidebarOverlay" class="fixed inset-0 bg-black bg-opacity-30 z-20 hidden md:hidden" aria-hidden="true"></div>
-
-    <!-- Content Area (Editor/Preview) -->
-    <div class="content flex-1 flex flex-col overflow-hidden">
-        <!-- Tabs -->
-        <div class="tabs-container flex-shrink-0">
-            <div class="tabs flex">
-                <button class="tab cursor-pointer flex-shrink-0 inline-flex items-center text-xs px-3 py-2 md:text-sm md:px-4 md:py-2.5" data-tab="html">HTML Editor</button>
-                <button class="tab cursor-pointer flex-shrink-0 active inline-flex items-center text-xs px-3 py-2 md:text-sm md:px-4 md:py-2.5" data-tab="preview">
-                    <i class="fas fa-play mr-1 md:mr-1.5 text-xs"></i>
-                    <span class="hidden md:inline">Desktop View</span>
-                    <span class="inline md:hidden">View</span>
-                </button>
-                <button class="tab cursor-pointer flex-shrink-0 hidden md:flex items-center text-sm px-4 py-2.5" data-tab="mobilePreview">
-                    <i class="fas fa-play mr-1.5 text-xs"></i>
-                    Mobile View
-                </button>
-            </div>
+    <!-- Main Content Area -->
+    <div class="main flex flex-1 overflow-hidden relative">
+        <!-- Sidebar -->
+        <div id="sidebar" class="sidebar fixed inset-y-0 left-0 z-30 transform -translate-x-full md:relative md:translate-x-0 overflow-y-auto transition-transform duration-300 ease-in-out md:flex-shrink-0">
+            <button id="clearBtn"><i class="fas fa-eraser"></i><span>Clear Editor</span></button>
+            <button id="copyCodeBtn"><i class="fas fa-copy"></i><span>Copy Code</span></button>
+            <button id="pasteCodeBtn"><i class="fas fa-paste"></i><span>Paste Code</span></button>
+            <hr>
+            <button id="importBtn"><i class="fas fa-upload"></i><span>Import</span></button>
+            <input type="file" id="fileInput" accept=".txt,.html" class="sr-only">
+            <button id="exportBtn"><i class="fas fa-download"></i><span>Download</span></button>
+            <hr>
         </div>
-        <!-- Viewer Area -->
-        <div class="viewer flex-1 relative overflow-hidden">
-            <div id="htmlTab" class="tab-content absolute inset-0 z-0"><div id="editorContainer" class="w-full h-full"></div></div>
-            <div id="previewTab" class="tab-content active absolute inset-0 z-10"><iframe id="previewFrame" title="Desktop HTML Preview" class="w-full h-full border-none bg-white"></iframe></div>
-            <div id="mobilePreviewTab" class="tab-content absolute inset-0 z-0">
-                 <div class="mobile-frame-container flex justify-center items-center h-full p-2 sm:p-4 overflow-auto">
-                    <div class="mobile-frame flex-shrink-0"><iframe id="mobilePreviewFrame" title="Mobile HTML Preview"></iframe></div>
+        <div id="sidebarOverlay" class="fixed inset-0 bg-black bg-opacity-30 z-20 hidden md:hidden" aria-hidden="true"></div>
+
+        <!-- Content Area (Editor/Preview) -->
+        <div class="content flex-1 flex flex-col overflow-hidden">
+            <!-- Tabs -->
+            <div class="tabs-container flex-shrink-0">
+                <div class="tabs flex">
+                    <button class="tab cursor-pointer flex-shrink-0 inline-flex items-center text-xs px-3 py-2 md:text-sm md:px-4 md:py-2.5" data-tab="html">HTML Editor</button>
+                    <button class="tab cursor-pointer flex-shrink-0 active inline-flex items-center text-xs px-3 py-2 md:text-sm md:px-4 md:py-2.5" data-tab="preview">
+                        <i class="fas fa-play mr-1 md:mr-1.5 text-xs"></i>
+                        <span class="hidden md:inline">Desktop View</span>
+                        <span class="inline md:hidden">View</span>
+                    </button>
+                    <button class="tab cursor-pointer flex-shrink-0 hidden md:flex items-center text-sm px-4 py-2.5" data-tab="mobilePreview">
+                        <i class="fas fa-play mr-1.5 text-xs"></i>
+                        Mobile View
+                    </button>
                 </div>
             </div>
-        </div>
-        <div id="errorConsole" class="error-console p-3 px-4 text-xs font-mono max-h-32 overflow-y-auto hidden flex-shrink-0">
-            <pre id="errorOutput"></pre>
+            <!-- Viewer Area -->
+            <div class="viewer flex-1 relative overflow-hidden">
+                <div id="htmlTab" class="tab-content absolute inset-0 z-0"><div id="editorContainer" class="w-full h-full"></div></div>
+                <div id="previewTab" class="tab-content active absolute inset-0 z-10"><iframe id="previewFrame" title="Desktop HTML Preview" class="w-full h-full border-none bg-white"></iframe></div>
+                <div id="mobilePreviewTab" class="tab-content absolute inset-0 z-0">
+                     <div class="mobile-frame-container flex justify-center items-center h-full p-2 sm:p-4 overflow-auto">
+                        <div class="mobile-frame flex-shrink-0"><iframe id="mobilePreviewFrame" title="Mobile HTML Preview"></iframe></div>
+                    </div>
+                </div>
+            </div>
+            <div id="errorConsole" class="error-console p-3 px-4 text-xs font-mono max-h-32 overflow-y-auto hidden flex-shrink-0">
+                <pre id="errorOutput"></pre>
+            </div>
         </div>
     </div>
-</div>
-
-<!-- Footer -->
-<div class="footer py-2.5 px-5 text-center text-xs flex-shrink-0">
-    HTML Studio © 2025. Crafted with you <i class="fas fa-heart text-red-500"></i>.
-</div>
 
 <script>
-    // JavaScript remains the same
+    // JavaScript remains the same, sidebarToggleBtn is still used.
     document.addEventListener('DOMContentLoaded', () => {
         let htmlEditorInstance = null;
         const sidebar = document.getElementById('sidebar');
-        const sidebarToggleBtn = document.getElementById('sidebarToggleBtn');
+        const sidebarToggleBtn = document.getElementById('sidebarToggleBtn'); // This button is now outside .header
         const sidebarOverlay = document.getElementById('sidebarOverlay');
         const tabs = document.querySelectorAll('.tab');
         const tabContents = document.querySelectorAll('.tab-content');
@@ -405,9 +373,21 @@
         const pasteCodeBtn = document.getElementById('pasteCodeBtn');
         const toastNotification = document.getElementById('toastNotification');
 
+        // Critical check - sidebarToggleBtn is still essential
         if (!editorContainer || !previewFrame || !mobilePreviewFrame || !fileInput || !errorConsole || !errorOutput || !sidebar || !sidebarToggleBtn || !sidebarOverlay || !toastNotification) {
             console.error("Essential UI elements not found! Check HTML IDs.");
-            document.body.innerHTML = '<div style="padding:20px;font-family:sans-serif;color:red;"><h1>Initialization Error</h1><p>Critical UI elements are missing. The application cannot start.</p></div>';
+            let errorMsg = "Essential UI elements not found: ";
+            if(!editorContainer) errorMsg += "editorContainer, ";
+            if(!previewFrame) errorMsg += "previewFrame, ";
+            if(!mobilePreviewFrame) errorMsg += "mobilePreviewFrame, ";
+            if(!fileInput) errorMsg += "fileInput, ";
+            if(!errorConsole) errorMsg += "errorConsole, ";
+            if(!errorOutput) errorMsg += "errorOutput, ";
+            if(!sidebar) errorMsg += "sidebar, ";
+            if(!sidebarToggleBtn) errorMsg += "sidebarToggleBtn, ";
+            if(!sidebarOverlay) errorMsg += "sidebarOverlay, ";
+            if(!toastNotification) errorMsg += "toastNotification, ";
+            document.body.innerHTML = `<div style="padding:20px;font-family:sans-serif;color:red;"><h1>Initialization Error</h1><p>${errorMsg.slice(0,-2)}. The application cannot start.</p></div>`;
             return;
         }
 
